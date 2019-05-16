@@ -25,7 +25,7 @@ exports.config = {
     //       shardTestFiles: true,
     //       maxInstances: 2
     //     }], 
-    restartBrowserBetweenTests: true,
+    // restartBrowserBetweenTests: true,
     onPrepare: function() {
         require('ts-node').register({
           project: require('path').join(__dirname, './tsconfig.json')

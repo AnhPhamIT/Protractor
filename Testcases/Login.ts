@@ -1,26 +1,23 @@
-import { browser, by, protractor, ElementFinder } from "protractor";
+import {browser, by} from 'protractor'
 
-describe("User", function(){ 
-
-    it("should be welcome when login with valid account", async function(){
+describe("Login page ", function (){
+    it("should be navigated to HomePage when login with valid account", async function(){
         
-        browser.waitForAngularEnabled(false)
-        browser.manage().window().maximize()
-        browser.get("http://travelwithus.asia/")        
-        console.log("Browser has been started successfully")
+        let username_ele = browser.element(by.model("Auth.user.name"))
+        let password = browser.element(by.model("Auth.user.password"))
+        let userDes = browser.element(by.model("model[options.key]"))
+        let login_btn = browser.element(by.xpath("//button[contains(text(),'Login')]"))
+        let home_title= browser.element(by.xpath("//h1[text()='Home']"))
 
-        console.log("selecting on Sign In")
-        await browser.element(by.xpath("//a[normalize-space()='Sign In']")).click()
+        await browser.waitForAngularEnabled(true)
+        await browser.get("http://www.way2automation.com/angularjs-protractor/registeration/#/login")
+        await browser.manage().window().maximize()
+        await username_ele.sendKeys("angular")
+        await password.sendKeys("password")
+        await userDes.sendKeys("ABC")
+        await login_btn.click()
+        
+        await expect(home_title.isDisplayed()).toBe(true)
         await browser.sleep(5000)
-        console.log("Input email")
-        await browser.element(by.xpath("//input[@id='email']")).sendKeys("ptvanh@mailinator.com")
-        console.log("Input password")
-        await browser.element(by.xpath("//input[@id='pwd']")).sendKeys("123456")
-        console.log("selecting on Login button")
-        await browser.element(by.xpath("//button[text()='Login']")).click()
-
-        console.log("verify welcome email in the top right corner")
-        await expect(browser.element(by.xpath("//a[contains(text(),'Welcome ptvanh@mailinator.com')]")).isDisplayed()).toBe(true)
     })
-
 })
